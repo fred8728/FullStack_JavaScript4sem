@@ -22,7 +22,7 @@ const getPlanetforFirstSpeciesInFirstMovieForPerson = id =>
             resolve(console.log('First film:', data.title));
             fetch(data.species[0])
               .then(response => {
-                return response.json();
+                return response.json();    
               })
               .then(data => {
                 resolve(console.log('First species:', data.name));

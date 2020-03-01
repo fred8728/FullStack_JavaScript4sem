@@ -1,19 +1,18 @@
 
 const osFile = require('./osFile')
 const dosDetector = require('./dosDetector')
-const myDos = new dosDetector.DOS_Detector(5000)
-
-myDos.on("DosDetected", event => {
-  console.log(
-    `Attack Detected: URL: ${event.url} and Time: ${event.timeBetweenCalls}`
-  );
-});
-
 const http = require('http');
+
+const myDos = new dosDetector.DOS_Detector(1000)
+myDos.on('Dosdetected' , e => {
+  console.log(`Attack detected info - URL: ${e.url} TimeBetweenCalls: ${e.timeBetweenCalls}`)
+})
+
 const server = http.createServer((req, res) => {
   if (req.url === '/api/os-info') {
     res.setHeader('Content-Type', 'application/json');
-    res.write(JSON.stringify(osFile.osFile()))
+    //Return a response with OS-info, using the code implemented in part-a
+    res.write(`${osFile.osFile()}`)
     return res.end();
   }
   if (req.url === '/') {
@@ -25,9 +24,12 @@ const server = http.createServer((req, res) => {
   }
 });
 server.on('connection', (sock) => {
-mydos.addURL(sock.remoteAddress)
+  console.log(sock.remoteAddress)
+  myDos.addUrl(sock.remoteAddress)
   // You can get the client-IP in here, using sock.remoteAddress)
 });
 server.listen(3000);
 console.log('listening on 3000');
+
 //Register for the "DosDetected" event and console.log the url and time info.
+

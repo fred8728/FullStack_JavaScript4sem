@@ -12,8 +12,7 @@ const EventEmitter = require('events')
     if(this.urls.has(url)){
       const deltaTime = time - this.urls.get(url) 
       if(deltaTime < this.TIME_BETWEEN_CALLS){
-        console.log("TODO: Fire the 'DosDetected' event")
-        this.emit("DosDetected", {'url': url, 'timeBetweenCalls': deltaTime})
+        this.emit("DosDetected", {'URL': url, 'Time between calls': deltaTime})
       }
     }
     this.urls.set(url,time);

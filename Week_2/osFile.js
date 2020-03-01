@@ -12,6 +12,4 @@ const osFile = () => {
       return data;
 }
 
-module.exports = osFile;
-
-console.log(osFile)
+module.exports.osFile = osFile;
